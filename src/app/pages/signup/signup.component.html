@@ -1,0 +1,91 @@
+<div class="container-fluid login-wrapper h-100">
+  <div class="row h-100">
+    <!-- Left Image Section -->
+    <div class="col-md-6 d-none d-md-block image-section p-0">
+      <img src="images/login_background.png" class="img-fluid h-100 w-100" alt="Warehouse Signup" />
+    </div>
+
+    <!-- Right Form Section -->
+    <div class="col-md-6 d-flex align-items-center justify-content-center">
+      <div class="login-form w-75">
+        <div class="text-center mb-4">
+          <img src="images/logo.png" alt="Logo" class="logo mb-2" />
+          <h3 class="fw-bold">Sign Up</h3>
+          <p class="text-muted">Create your account to start managing inventory and operations.</p>
+        </div>
+
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>
+
+        <form (ngSubmit)="onSignup()" #signupForm="ngForm">
+          <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input
+              id="firstName"
+              name="first_name"
+              [(ngModel)]="signupData.first_name"
+              class="form-control"
+              placeholder="Enter first name"
+              required />
+          </div>
+
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input
+              id="lastName"
+              name="last_name"
+              [(ngModel)]="signupData.last_name"
+              class="form-control"
+              placeholder="Enter last name"
+              required />
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              id="email"
+              name="email"
+              [(ngModel)]="signupData.email"
+              type="email"
+              class="form-control"
+              placeholder="Enter email"
+              required />
+          </div>
+
+          <div class="mb-3 position-relative">
+            <label for="password" class="form-label">Password</label>
+            <input
+              id="password"
+              name="password"
+              [(ngModel)]="signupData.password"
+              type="password"
+              class="form-control"
+              placeholder="Enter password"
+              required />
+          </div>
+
+          <div class="mb-3 position-relative">
+            <label for="confirmPassword" class="form-label">Confirm Password</label>
+            <input
+              id="confirmPassword"
+              name="confirm_password"
+              [(ngModel)]="signupData.confirm_password"
+              type="password"
+              class="form-control"
+              placeholder="Confirm password"
+              required />
+          </div>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid">Sign up</button>
+          </div>
+
+          <div class="text-center mt-3">
+            <span class="small">Already have an account? <a routerLink="/login" class="text-decoration-none">Login</a></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

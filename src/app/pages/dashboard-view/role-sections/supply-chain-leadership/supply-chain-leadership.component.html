@@ -1,0 +1,177 @@
+<div class="container-fluid p-4">
+  <!-- Top Filters and Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <div class="d-flex align-items-center gap-3 flex-wrap">
+      <img src="/images/logo.png" alt="Logo" height="50" />
+      <h4 class="mb-0 fw-bold">Supply Chain Leadership</h4>
+    </div>
+    <div class="row gx-2 align-items-center">
+      <div class="col-auto">
+        <select class="form-select">
+          <option>Date</option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <select class="form-select">
+          <option>Location</option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <select class="form-select">
+          <option>Warehouse</option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary">Apply Filter</button>
+      </div>
+    </div>
+    <div class="text-end fw-bold text-primary fs-5">
+      <i class="bi bi-box-seam"></i> Inventory Balance - $10Mn
+    </div>
+  </div>
+
+  <!-- Dashboard Cards Row 1 -->
+  <div class="row g-4">
+    <!-- Inventory Value -->
+    <div class="col-lg-4">
+      <div class="card p-3 shadow-sm">
+        <h6>Inventory Value (Top 10 Items by Value)</h6>
+        <canvas
+          baseChart
+          [data]="inventoryChartOptions.data"
+          [options]="inventoryChartOptions.options"
+          [type]="inventoryChartOptions.type">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- Obsolescence Value -->
+    <div class="col-lg-4">
+      <div class="card p-3 shadow-sm">
+        <h6>Obsolescence Value</h6>
+        <canvas
+          baseChart
+          [data]="obsolescenceChartOptions.data"
+          [options]="obsolescenceChartOptions.options"
+          [type]="obsolescenceChartOptions.type">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- Frequently Ordered -->
+    <div class="col-lg-4">
+      <div class="card p-3 shadow-sm">
+        <h6>Frequently Ordered Inventory Details</h6>
+        <table class="table table-sm table-bordered text-center">
+          <thead class="table-light">
+            <tr>
+              <th>Items</th><th>Date</th><th>Units in Hand</th><th>Units On Order</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>100257-F171501</td><td>02/01/2025</td><td>160</td><td class="text-danger">171</td>
+            </tr>
+            <tr>
+              <td>100258-F171301</td><td>05/01/2025</td><td>170</td><td class="text-success">70</td>
+            </tr>
+            <tr>
+              <td>100191-A181</td><td>05/13/2025</td><td>200</td><td class="text-success">20</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Cards Row 2 -->
+  <div class="row mt-4 g-4">
+  <div class="col-lg-3 col-md-6">
+    <div class="card p-3 text-center shadow-sm dashboard-card">
+      <h6>Cycle Count Accuracy</h6>
+      <div class="chart-wrapper">
+        <canvas baseChart
+          [type]="cycleCountGaugeOptions.type"
+          [data]="cycleCountGaugeOptions.data"
+          [options]="cycleCountGaugeOptions.options">
+        </canvas>
+        <div class="chart-label-center">85%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6">
+    <div class="card p-3 text-center shadow-sm dashboard-card">
+      <h6>Region wise accuracy</h6>
+      <div class="chart-wrapper">
+        <canvas baseChart
+          [data]="regionAccuracyChartOptions.data"
+          [options]="regionAccuracyChartOptions.options"
+          [type]="regionAccuracyChartOptions.type">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6">
+    <div class="card p-3 text-center shadow-sm dashboard-card">
+      <h6>Warehouse Cycle Count Accuracy</h6>
+      <div class="chart-wrapper">
+        <canvas baseChart
+          [data]="warehouseCycleCountChartOptions.data"
+          [options]="warehouseCycleCountChartOptions.options"
+          [type]="warehouseCycleCountChartOptions.type">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6">
+    <div class="card p-3 text-center shadow-sm dashboard-card d-flex align-items-center justify-content-center">
+      <div>
+        <h6>Day Inventory Outstanding</h6>
+        <div class="fs-2 fw-bold">89 days</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="obsolescenceModal" tabindex="-1" aria-labelledby="obsolescenceModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+          <div class="modal-content rounded-lg shadow-xl">
+            <div class="modal-header bg-blue-600 text-white p-4 rounded-t-lg">
+              <h5 class="modal-title text-xl font-bold" id="obsolescenceModalLabel">Obsolescence Details - {{ selectedChartLabel }}</h5>
+              <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-6">
+              <div *ngIf="modalData.length === 0" class="text-center text-gray-500 py-4">
+                No detailed data available for this category.
+              </div>
+              <div *ngIf="modalData.length > 0">
+                <div class="table-responsive-scroll">
+                  <table class="table table-bordered table-sm w-full text-xs">
+                    <thead class="bg-gray-100">
+                      <tr>
+                        <th *ngFor="let header of modalHeaders" class="py-2 px-4 text-left font-semibold text-gray-700 border-b-2 border-gray-300">
+                          {{ header }}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of modalData" class="hover:bg-gray-50">
+                        <td *ngFor="let header of modalHeaders" class="py-2 px-4 border-b border-gray-200">
+                          {{ row[header] }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer p-4 border-t border-gray-200">
+              <button type="button" class="btn btn-secondary px-4 py-2 rounded-md shadow-sm" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>

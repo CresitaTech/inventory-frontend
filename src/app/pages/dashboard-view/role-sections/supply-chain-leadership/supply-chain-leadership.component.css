@@ -1,0 +1,47 @@
+.card {
+  border-radius: 12px;
+  border: none;
+}
+
+.card h6 {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.dashboard-card {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+.chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+.chart-label-center {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+}
+.table-responsive-scroll {
+      max-height: 400px; /* Adjust this value as needed for desired scroll height */
+      overflow-y: auto; /* Enable vertical scrolling */
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+    /* Ensure table headers are sticky if scrolling through tbody */
+    .table-responsive-scroll thead th {
+      position: sticky;
+      top: 0;
+      background-color: #f8f9fa; /* Match background color */
+      z-index: 10; /* Ensure it stays above scrolling content */
+    }
+    .table.text-xs {
+      font-size: 0.75rem; /* 12px */
+    }

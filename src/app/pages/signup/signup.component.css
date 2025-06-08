@@ -1,0 +1,35 @@
+.login-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(to right, #ffffff 50%, #f0f7fc 50%);
+}
+
+.image-section {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.image-section img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.logo {
+  max-width: 60px;
+}
+
+.login-form {
+  max-width: 400px;
+}
+
+@media (max-width: 767.98px) {
+  .login-wrapper {
+    background: #f0f7fc;
+  }
+
+  .login-form {
+    width: 100%;
+    padding: 2rem;
+  }
+}
