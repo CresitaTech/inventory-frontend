@@ -42,6 +42,17 @@
           </div>
 
           <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input
+              id="username"
+              name="username"
+              [(ngModel)]="signupData.username"
+              class="form-control"
+              placeholder="Choose a username"
+              required />
+          </div>
+
+          <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input
               id="email"
@@ -65,16 +76,20 @@
               required />
           </div>
 
-          <div class="mb-3 position-relative">
-            <label for="confirmPassword" class="form-label">Confirm Password</label>
-            <input
-              id="confirmPassword"
-              name="confirm_password"
-              [(ngModel)]="signupData.confirm_password"
-              type="password"
-              class="form-control"
-              placeholder="Confirm password"
-              required />
+          <div class="mb-3">
+            <label for="role" class="form-label">Select Role</label>
+            <select
+              id="role"
+              name="role"
+              [(ngModel)]="signupData.role"
+              class="form-select"
+              required>
+              <option value="" disabled selected>Select role</option>
+              <option [value]="1">Supply Chain Leadership</option>
+              <option [value]="2">Supply Chain Operations</option>
+              <option [value]="3">Finance</option>
+              <option [value]="4">CEO/Head of Finance</option>
+            </select>
           </div>
 
           <div class="d-grid">

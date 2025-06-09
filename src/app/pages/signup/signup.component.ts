@@ -15,9 +15,10 @@ export class SignupComponent {
   signupData = {
     first_name: '',
     last_name: '',
+    username: '',
     email: '',
     password: '',
-    confirm_password: ''
+    role: null as number | null
   };
 
   errorMessage: string | null = null;
@@ -25,12 +26,17 @@ export class SignupComponent {
   constructor(private auth: AuthService, private router: Router) {}
 
   onSignup() {
-    if (this.signupData.password !== this.signupData.confirm_password) {
-      this.errorMessage = 'Passwords do not match';
+    if (!this.signupData.role) {
+      this.errorMessage = 'Please select a role';
       return;
     }
 
-    this.auth.signup(this.signupData).subscribe(result => {
+    const signupPayload = {
+      ...this.signupData,
+      role: this.signupData.role as number
+    };
+
+    this.auth.signup(signupPayload).subscribe(result => {
       if (result.success) {
         console.log('Signup successful');
         this.router.navigate(['/login'], {

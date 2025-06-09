@@ -77,18 +77,19 @@ export class AuthService {
   signup(data: {
     first_name: string;
     last_name: string;
+    username: string;
     email: string;
     password: string;
-    confirm_password: string;
-  }): Observable<{ success: boolean; message: string }> {
-    return this.http.post<any>(`${this.apiUrl}/signup/`, data).pipe(
-      map(response => {
-        if (response && response.success) {
-          return { success: true, message: response.message || 'Signup successful' };
-        } else {
-          return { success: false, message: response.message || 'Signup failed' };
-        }
-      }),
+    role: number;
+    }): Observable<{ success: boolean; message: string }> {
+      return this.http.post<any>(`${this.apiUrl}/signup/`, data).pipe(
+        map(response => {
+          if (response && response.success) {
+            return { success: true, message: response.message || 'Signup successful' };
+          } else {
+            return { success: false, message: response.message || 'Signup failed' };
+          }
+        }),
       catchError((error: HttpErrorResponse) => {
         console.error('Signup API error:', error);
         let errorMessage = 'An unknown error occurred during signup.';

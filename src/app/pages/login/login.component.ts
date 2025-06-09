@@ -23,7 +23,7 @@ export class LoginComponent {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (params['signupSuccess'] === '1') {
-        this.successMessage = 'Signup successful. Please await administrator approval for login activation.';
+        this.successMessage = 'Signup successful! Please check your email and await administrator approval for login activation.';
       }
     });
   }
